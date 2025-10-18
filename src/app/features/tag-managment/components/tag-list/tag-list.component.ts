@@ -4,6 +4,7 @@ import { TagFormComponent } from '../tag-form/tag-form.component';
 
 @Component({
   selector: 'app-tag-list',
+  standalone: false,
   template: `
     <div class="container">
       <button mat-raised-button color="primary" (click)="openTagForm()">
@@ -35,5 +36,8 @@ export class TagListComponent implements OnInit {
         // Обработка сохраненного тега
       }
     });
+  }
+  ngOnInit() {
+    console.log("ngOnInit");
   }
 }

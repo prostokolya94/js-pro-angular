@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from '../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
-import { User } from '../../models/user.model';
+import { UserService } from '../../../../core/services/user.service';
 
 @Component({
   selector: 'app-user-form',
+  standalone: false,
   template: `
     <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
       <mat-card>
@@ -29,12 +29,16 @@ import { User } from '../../models/user.model';
           <mat-form-field appearance="fill">
             <mat-label>Роли</mat-label>
             <mat-select formControlName="roles" multiple>
-              <mat-option *ngFor="let role of availableRoles" [value]="role.value">
-                {{ role.viewValue }}
-              </mat-option>
+              @for (role of availableRoles; track role.value) {
+                <mat-option [value]="role.value">
+                  {{ role.viewValue }}
+                </mat-option>
+              }
             </mat-select>
-            <mat-error *ngIf="roles?.errors?.['required']">
+            <mat-error>
+              @if (roles?.errors?.['required']) {
               Выберите хотя бы одну роль
+              }
             </mat-error>
           </mat-form-field>
         </mat-card-content>
@@ -70,7 +74,7 @@ export class UserFormComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private snackBar: MatSnackBar,
-    private location: Location
+    protected location: Location
   ) {}
 
   ngOnInit() {
@@ -81,7 +85,7 @@ export class UserFormComponent implements OnInit {
         this.userForm.patchValue({
           username: user.username,
           email: user.email,
-          roles: user.roles
+          roles: user.roles as never[]
         });
       });
     }

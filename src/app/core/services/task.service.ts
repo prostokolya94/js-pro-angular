@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Task } from 'src/app/shared/components/task/task.model';
+import { Task } from '../../../app/shared/models/task/task.model';
 import { environment } from '../../environments/environment';
 
 @Injectable({

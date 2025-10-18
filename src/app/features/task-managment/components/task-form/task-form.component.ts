@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-task-form',
+  standalone: false,
   template: `
     <form [formGroup]="taskForm">
       <mat-form-field appearance="fill">
