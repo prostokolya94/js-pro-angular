@@ -1,30 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TagFormComponent } from '../tag-form/tag-form.component';
+import {Tag} from '../../../../shared/models/tag/tag.model';
 
 @Component({
   selector: 'app-tag-list',
   standalone: false,
+  styleUrls: ['./tag-list.component.css'],
   template: `
     <div class="container">
       <button mat-raised-button color="primary" (click)="openTagForm()">
         Добавить тег
       </button>
 
-      <mat-table [dataSource]="tags">
-        <ng-container matColumnDef="name">
-          <mat-header-cell *matHeaderCellDef>Имя</mat-header-cell>
-          <mat-cell *matCellDef="let tag">{{ tag.name }}</mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: columns;"></mat-row>
-      </mat-table>
+      <table class="tag-table">
+        <thead>
+        <tr>
+          <th>Имя</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (tag of tags; track tag) {
+            <tr>
+              <td>{{ tag.name }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
     </div>
   `
 })
 export class TagListComponent implements OnInit {
-  tags = [];
+  tags:Tag[] = [{id: "1", name: 'tag1', description: "description1"}, {id: "2", name: 'tag2', description: "description2"}];
   columns = ['name'];
 
   constructor(private dialog: MatDialog) {}

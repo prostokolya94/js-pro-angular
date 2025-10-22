@@ -45,11 +45,16 @@ export const routes: Routes = [
         component: TaskFormComponent
       }
     ]
-  }
+  },
+  {
+    path: "",
+    redirectTo: "tasks",
+    pathMatch: "full"
+    }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

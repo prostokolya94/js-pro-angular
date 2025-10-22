@@ -12,18 +12,19 @@ import {
   MatHeaderRowDef,
   MatRow,
   MatRowDef,
-  MatTable
+  MatTable, MatTableModule
 } from '@angular/material/table';
 import {TaskFormComponent} from './features/task-managment/components/task-form/task-form.component';
 import {TaskListComponent} from './features/task-managment/components/task-list/task-list.component';
 import {TagFormComponent} from './features/tag-managment/components/tag-form/tag-form.component';
 import {TagListComponent} from './features/tag-managment/components/tag-list/tag-list.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import {MatButton} from '@angular/material/button';
+import {MatButton, MatButtonModule} from '@angular/material/button';
 import {MatInput} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {RouterOutlet} from "@angular/router";
 import {HttpClientModule} from '@angular/common/http';
+import {AppRoutingModule} from './app.routes';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,10 @@ import {HttpClientModule} from '@angular/common/http';
         MatColumnDef,
         MatFormFieldModule,
         MatCardTitle,
-        RouterOutlet
+        RouterOutlet,
+        AppRoutingModule,
+        MatTableModule,
+        MatButtonModule
     ],
 })
 export class AppModule { }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-task-form',
@@ -16,7 +17,14 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
         <textarea matInput formControlName="description"></textarea>
       </mat-form-field>
 
-      <!-- Остальные поля формы -->
+      <mat-card-actions align="end">
+        <button mat-button color="default" (click)="location.back()">
+          Отмена
+        </button>
+        <button mat-raised-button color="primary" type="submit">
+          Сохранить
+        </button>
+      </mat-card-actions>
     </form>
   `
 })
@@ -27,6 +35,10 @@ export class TaskFormComponent {
     inputExamples: new FormControl([]),
     outputExamples: new FormControl([]),
     difficultyLevel: new FormControl(1),
-    tags: new FormControl([])
+    tags: new FormControl([]),
   });
+
+  constructor(
+    protected location: Location
+  ) {}
 }

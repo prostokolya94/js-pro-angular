@@ -1,34 +1,51 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import {TaskService} from '../../../../core/services/task.service';
 import {Task} from '../../../../shared/models/task/task.model';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-task-list',
   standalone: false,
+  styleUrls: ['./task-list.component.css'],
   template: `
     <div class="container">
       <button mat-raised-button color="primary" (click)="openTaskForm()">
         Добавить задачу
       </button>
-
-      <mat-table [dataSource]="tasks">
-        <!-- Колонки таблицы -->
-        <ng-container matColumnDef="title">
-          <mat-header-cell *matHeaderCellDef>Название</mat-header-cell>
-          <mat-cell *matCellDef="let task">{{ task.title }}</mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: columns;"></mat-row>
-      </mat-table>
+      <table class="task-table">
+        <thead>
+        <tr>
+          <th>Название</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (task of tasks; track task) {
+            <tr>
+              <td>{{ task.title }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
     </div>
-  `
+  `,
+  providers: [TaskService],
 })
 export class TaskListComponent implements OnInit {
-  tasks:Task[] = [];
-  columns = ['title'];
+  tasks:Task[] = [
+    {
+      title: "Задача 1",
+      description:"Описание задачи 1",
+      id:"1",
+      difficultyLevel:2,
+      inputExamples: [],
+      outputExamples: [],
+      tags: []
+    }
+  ];
+  displayedColumns = ['title'];
+  tasksDataSource = new MatTableDataSource<Task>(this.tasks);
 
   constructor(private dialog: MatDialog, private taskService: TaskService,) {}
 
@@ -41,6 +58,9 @@ export class TaskListComponent implements OnInit {
     });
   }
   ngOnInit() {
-     this.taskService.getAllTasks().subscribe((res) => {this.tasks = res;});
+     this.taskService.getAllTasks().subscribe((res) => {
+       this.tasks = res;
+       this.tasksDataSource.data = res;
+     });
   }
 }
