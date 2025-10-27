@@ -18,12 +18,12 @@ import { UserService } from '../../../../core/services/user.service';
         <mat-card-content>
           <mat-form-field appearance="fill">
             <mat-label>Пользователь</mat-label>
-            <input matInput formControlName="username" readonly>
+            <input matInput formControlName="username">
           </mat-form-field>
 
           <mat-form-field appearance="fill">
             <mat-label>Email</mat-label>
-            <input matInput formControlName="email" readonly>
+            <input matInput formControlName="email">
           </mat-form-field>
 
           <mat-form-field appearance="fill">
@@ -57,9 +57,9 @@ import { UserService } from '../../../../core/services/user.service';
 })
 export class UserFormComponent implements OnInit {
   userForm = new FormGroup({
-    username: new FormControl({ value: '', disabled: true }),
-    email: new FormControl({ value: '', disabled: true }),
-    roles: new FormControl([], Validators.required)
+    username: new FormControl(''),
+    email: new FormControl(''),
+    roles: new FormControl([''], Validators.required)
   });
 
   isEditMode = false;
@@ -85,7 +85,7 @@ export class UserFormComponent implements OnInit {
         this.userForm.patchValue({
           username: user.username,
           email: user.email,
-          roles: user.roles as never[]
+          roles: user.roles
         });
       });
     }

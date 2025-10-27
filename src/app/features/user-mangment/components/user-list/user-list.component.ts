@@ -10,6 +10,9 @@ import {UserService} from '../../../../core/services/user.service';
   selector: 'app-user-list',
   template: `
     <div class="container">
+      <button mat-raised-button color="primary" (click)="openUserForm()">
+        Добавить пользователя
+      </button>
       <mat-table [dataSource]="users">
         <ng-container matColumnDef="username">
           <mat-header-cell *matHeaderCellDef>Имя пользователя</mat-header-cell>
@@ -31,6 +34,15 @@ export class UserListComponent implements OnInit {
 
   constructor(private dialog: MatDialog, private userService: UserService,) {
 
+  }
+
+  openUserForm() {
+    const dialogRef = this.dialog.open(UserFormComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Обработка сохраненного пользователя
+      }
+    });
   }
 
   openRoleForm(user: User) {
