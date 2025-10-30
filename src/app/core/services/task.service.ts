@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class TaskService {
-  private apiUrl = `${environment.apiUrl}/tags`;
+  private apiUrl = `${environment.apiUrl}/tasks`;
 
   constructor(private http: HttpClient) {}
 
@@ -15,11 +15,14 @@ export class TaskService {
     return this.http.get<Task[]>(this.apiUrl);
   }
 
-  createTask(task: Task) {
+  createTask(task: Pick<Task, "difficultyLevel" | "description" | "title">) {
     return this.http.post<Task>(this.apiUrl, task);
   }
 
   updateTask(id: string, task: Partial<Task>) {
     return this.http.patch<Task>(`${this.apiUrl}/${id}`, task);
+  }
+  deleteTask(id: string) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }

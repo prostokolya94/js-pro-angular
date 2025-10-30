@@ -1,0 +1,20 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 500px;
+  padding: 10px;
+}
+
+.form-field {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 25px;
+  justify-content: flex-end;
+  padding: 10px 0;
+}

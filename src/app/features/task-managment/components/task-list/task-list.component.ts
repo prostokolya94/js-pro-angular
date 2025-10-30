@@ -18,12 +18,18 @@ import {MatTableDataSource} from '@angular/material/table';
         <thead>
         <tr>
           <th>Название</th>
+          <th>Описание</th>
+          <th>Уровень сложности</th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
           @for (task of tasks; track task) {
             <tr>
               <td>{{ task.title }}</td>
+              <td>{{ task.description }}</td>
+              <td>{{ task.difficultyLevel }}</td>
+              <td><button (click)="onTaskDelete(task.id)" >Удалить</button></td>
             </tr>
           }
         </tbody>
@@ -62,5 +68,18 @@ export class TaskListComponent implements OnInit {
        this.tasks = res;
        this.tasksDataSource.data = res;
      });
+  }
+
+  onTaskDelete(taskId: string) {
+    this.taskService.deleteTask(String(taskId)).subscribe({
+      next: () => {
+      this.tasksDataSource.data = this.tasksDataSource.data.filter(task => task.id !== taskId);
+      this.tasks = this.tasks.filter(task => task.id !== taskId);
+      },
+      error: () => {
+        this.tasksDataSource.data = this.tasksDataSource.data.filter(task => task.id !== taskId);
+        this.tasks = this.tasks.filter(task => task.id !== taskId);
+      }
+    });
   }
 }
