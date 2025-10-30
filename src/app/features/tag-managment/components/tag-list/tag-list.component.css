@@ -1,0 +1,21 @@
+.tag-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+}
+
+.tag-table th,
+.tag-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.tag-table th {
+  background-color: #8397e8;
+  font-weight: bold;
+}
+
+.tag-table tr:hover {
+  background-color: rgba(131, 151, 232, 0.49);
+}
