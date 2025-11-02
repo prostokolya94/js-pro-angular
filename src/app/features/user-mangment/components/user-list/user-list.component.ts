@@ -3,11 +3,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { UserFormComponent } from '../user-form/user-form.component';
 import {User} from '../../../../shared/models/user/user.model';
 import {UserService} from '../../../../core/services/user.service';
+import {MaterialModule} from '../../../../shared/modules/material.module';
+import {setCurrentPage} from '../../../../store/page-state/page-state.actions';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../../store/page-state';
 
 
 @Component({
-  standalone: false,
+  standalone: true,
   selector: 'app-user-list',
+  imports: [MaterialModule],
   template: `
     <div class="container">
       <button mat-raised-button color="primary" (click)="openUserForm()">
@@ -24,7 +29,6 @@ import {UserService} from '../../../../core/services/user.service';
                 (click)="openRoleForm(row)">
         </mat-row>
       </mat-table>
-      <router-outlet></router-outlet>
     </div>
   `
 })
@@ -32,7 +36,7 @@ export class UserListComponent implements OnInit {
   users:User[] = [];
   columns = ['username'];
 
-  constructor(private dialog: MatDialog, private userService: UserService,) {
+  constructor(private dialog: MatDialog, private userService: UserService, private store: Store<AppState>) {
 
   }
 
@@ -60,5 +64,7 @@ export class UserListComponent implements OnInit {
     this.userService.getUsers().subscribe(user => {
       this.users = user
     });
+    this.store.dispatch(setCurrentPage({ page: "user" }));
+
   }
 }

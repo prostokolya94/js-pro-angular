@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {FormGroup, FormControl, Validators, ReactiveFormsModule} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
 import {TagService} from '../../../../core/services/tag.service';
+import {MaterialModule} from '../../../../shared/modules/material.module';
 
 @Component({
   selector: 'app-tag-form',
-  standalone: false,
+  standalone: true,
+  imports: [MaterialModule, ReactiveFormsModule],
   template: `
     <form [formGroup]="tagForm" (ngSubmit)="onSubmit()">
       <mat-card>

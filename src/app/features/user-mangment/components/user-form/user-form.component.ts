@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {FormGroup, FormControl, Validators, ReactiveFormsModule} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
 import { UserService } from '../../../../core/services/user.service';
+import {MaterialModule} from '../../../..//shared/modules/material.module';
 
 @Component({
   selector: 'app-user-form',
-  standalone: false,
+  standalone: true,
+  imports: [MaterialModule, ReactiveFormsModule],
   template: `
     <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
       <mat-card>

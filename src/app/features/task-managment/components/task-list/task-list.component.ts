@@ -4,11 +4,16 @@ import { TaskFormComponent } from '../task-form/task-form.component';
 import {TaskService} from '../../../../core/services/task.service';
 import {Task} from '../../../../shared/models/task/task.model';
 import {MatTableDataSource} from '@angular/material/table';
+import {MaterialModule} from '../../../../shared/modules/material.module';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../../store/page-state';
+import {setCurrentPage} from '../../../../store/page-state/page-state.actions';
 
 @Component({
   selector: 'app-task-list',
-  standalone: false,
+  standalone: true,
   styleUrls: ['./task-list.component.css'],
+  imports: [MaterialModule],
   template: `
     <div class="container">
       <button mat-raised-button color="primary" (click)="openTaskForm()">
@@ -53,7 +58,7 @@ export class TaskListComponent implements OnInit {
   displayedColumns = ['title'];
   tasksDataSource = new MatTableDataSource<Task>(this.tasks);
 
-  constructor(private dialog: MatDialog, private taskService: TaskService,) {}
+  constructor(private dialog: MatDialog, private taskService: TaskService, private store: Store<AppState> ) {}
 
   openTaskForm() {
     const dialogRef = this.dialog.open(TaskFormComponent);
@@ -68,6 +73,8 @@ export class TaskListComponent implements OnInit {
        this.tasks = res;
        this.tasksDataSource.data = res;
      });
+    this.store.dispatch(setCurrentPage({ page: "task" }));
+
   }
 
   onTaskDelete(taskId: string) {

@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {FormGroup, FormControl, Validators, ReactiveFormsModule} from '@angular/forms';
 import {Location} from '@angular/common';
 import {MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {TaskService} from '../../../../core/services/task.service';
+import {MaterialModule} from '../../../../shared/modules/material.module';
 
 @Component({
   selector: 'app-task-form',
-  standalone: false,
+  standalone: true,
+  imports: [MaterialModule, ReactiveFormsModule],
   styleUrls: ['./task-form.component.css'],
   template: `
     <form [formGroup]="taskForm" class="form">
